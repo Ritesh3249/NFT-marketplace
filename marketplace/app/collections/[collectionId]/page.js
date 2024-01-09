@@ -7,9 +7,12 @@ import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 import { HiDotsVertical } from 'react-icons/hi'
 import Header from '@/components/Header'
 import NFTCard from '@/components/NFTCard'
+import Modal from './Modal'
+import { FaPencilAlt } from "react-icons/fa";
+
  
 const style = {
-  bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
+  bannerImageContainer: `h-[20vh] relative w-screen overflow-hidden flex justify-center items-center`,
   bannerImage: `w-full object-cover`,
   infoContainer: `w-screen px-4`,
   midRow: `w-full flex justify-center text-white`,
@@ -35,8 +38,45 @@ const Collection = () => {
 //   const { provider } = useWeb3()
 //   const { collectionId } = router.query
 //   const [collection, setCollection] = useState({})
-//   const [nfts, setNfts] = useState([])
-//   const [listings, setListings] = useState([])
+  const [nfts, setNfts] = useState([{
+    id:1,
+    image:'https://via.placeholder.com/200',
+    name:'item1'
+  },
+  {
+    id:2,
+    image:'https://via.placeholder.com/200',
+    name:'item2'
+  },{
+    id:3,
+    image:'https://via.placeholder.com/200',
+    name:'item3'
+  },{
+    id:4,
+    image:'https://via.placeholder.com/200',
+    name:'item4'
+  },{
+    id:5,
+    image:'https://via.placeholder.com/200',
+    name:'item5'
+  },
+])
+
+  const [listings, setListings] = useState([{
+    asset:{
+      id:1
+    },
+    buyoutCurrencyValuePerToken:{
+      displayValue:121
+    }
+  }])
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [userName, setUserName] = useState('Your Name');
+
+  const handleSaveName = (newName) => {
+    setUserName(newName);
+    // Add logic to save the new name (e.g., API call, state update, etc.)
+  };
 
 //   //
 
@@ -112,6 +152,10 @@ const Collection = () => {
     <div className="overflow-hidden">
       <Header />
       <div className={style.bannerImageContainer}>
+      <FaPencilAlt
+          className="text-white text-2xl absolute top-100 left-2 cursor-pointer"
+          onClick={() => setModalOpen(true)}
+        />
         <img
           className={style.bannerImage}
           src={
@@ -127,6 +171,10 @@ const Collection = () => {
       </div>
       <div className={style.infoContainer}>
         <div className={style.midRow}>
+        <FaPencilAlt
+            className="text-white text-2xl absolute top-2 right-2 cursor-pointer"
+            onClick={() => setModalOpen(true)}
+          />
           <img
             className={style.profileImg}
             src={
@@ -164,6 +212,10 @@ const Collection = () => {
           </div>
         </div>
         <div className={style.midRow}>
+        <FaPencilAlt
+            className="text-white text-2xl absolute top-2 right-2 cursor-pointer"
+            onClick={() => setModalOpen(true)}
+          />
           <div className={style.title}>{'title'}</div>
           {/* <div className={style.title}>{collection?.title}</div> */}
         </div>
@@ -191,7 +243,7 @@ const Collection = () => {
             <div className={style.collectionStat}>
               <div className={style.statValue}>
                 <img
-                  src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                  src=""
                   alt="eth"
                   className={style.ethLogo}
                 />
@@ -203,7 +255,7 @@ const Collection = () => {
             <div className={style.collectionStat}>
               <div className={style.statValue}>
                 <img
-                  src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                  src=""
                   alt="eth"
                   className={style.ethLogo}
                 />
@@ -220,15 +272,17 @@ const Collection = () => {
         </div>
       </div>
       <div className="flex flex-wrap ">
-        {/* {nfts.map((nftItem, id) => (
+        {nfts.map((nftItem, id) => (
           <NFTCard
             key={id}
             nftItem={nftItem}
             title="this is tested item"
             listings={listings}
           />
-        ))} */}
+        ))}
       </div>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} onSave={handleSaveName} />
+
     </div>
   )
 }
