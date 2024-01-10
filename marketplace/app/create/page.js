@@ -1,7 +1,8 @@
 "use client"
 import Header from '@/components/Header';
-import React from 'react';
+import React, { useState } from 'react';
 import { RiUpload2Fill } from 'react-icons/ri';
+const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
 
 const style = {
   wrapper: ` relative `,
@@ -24,10 +25,31 @@ const style = {
 };
 
 const CreateNFTPage = () => {
-  const handleSubmit = (e) => {
+  const [nftTitle, setNFTTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic for minting NFT here (e.g., interact with a smart contract)
+
+    const formData = new FormData();
+    console.log({nftTitle, description,imageFile})
+    formData.append('nftTitle', nftTitle);
+    formData.append('description', description);
+    formData.append('image', imageFile);
+
+    try {
+     console.log(formData)
+    } catch (error) {
+      console.error('Error during NFT minting:', error);
+    }
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+  };
+
 
   return (
     <div>
@@ -46,9 +68,11 @@ const CreateNFTPage = () => {
       <div className={style.formContainer}>
         <div className={style.formTitle}>Create Your NFT</div>
         <form onSubmit={(e)=>{handleSubmit(e)}}>
-          <input type="text" placeholder="NFT Title" className={style.formInput} />
-          <textarea placeholder="Description" className={style.formTextarea}></textarea>
-          <input type="file" accept="image/*" className={style.formInput} />
+          <input type="text" placeholder="NFT Title" className={style.formInput}  value={nftTitle}
+                    onChange={(e) => setNFTTitle(e.target.value)} />
+          <textarea placeholder="Description" className={style.formTextarea} value={description}
+                    onChange={(e) => setDescription(e.target.value)}></textarea>
+          <input type="file" accept="image/*" className={style.formInput} onChange={handleImageChange}/>
           <button type="submit" className={style.formSubmit}>
             <RiUpload2Fill className="mr-2" />
             Mint NFT

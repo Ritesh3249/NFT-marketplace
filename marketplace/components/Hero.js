@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react'
 import NFTCard from './NFTCard'
+import useSigner from '@/app/state/signer'
+ 
 
 const style = {
   wrapper: `relative`,
@@ -44,6 +46,8 @@ const Hero = () => {
   },
 ])
 
+const {address,loading , connectWallet}=useSigner()
+
   const [listings, setListings] = useState([{
     asset:{
       id:1
@@ -53,7 +57,7 @@ const Hero = () => {
     }
   }])
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper}> 
          <div className="flex flex-wrap ">
         {nfts.map((nftItem, id) => (
           <NFTCard

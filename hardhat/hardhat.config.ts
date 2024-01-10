@@ -5,15 +5,15 @@ const privateKey1 = process.env.PVTKEY
 
 console.log(privateKey1)
 const config: HardhatUserConfig =  {
-  solidity: "0.8.20",
-  defaultNetwork: "sepolia",
+  solidity: "0.8.11",
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {
     },  
-    sepolia: {
-      url: process.env.URL,
-      accounts: [privateKey1]
-    }
+    // sepolia: {
+    //   url: process.env.URL,
+    //   accounts: [privateKey1]
+    // }
   },
   
 }

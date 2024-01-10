@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -11,6 +11,7 @@ struct NFTlisting {
 
 contract NFTmarket is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId = 0;
+    
     event TokenEvents(uint256 uid);
     event NFTTransfer(
         uint256 tokenId,
@@ -21,7 +22,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
     );
     mapping(uint256 => NFTlisting) _listings;
 
-    constructor() Ownable(msg.sender) ERC721("MYNFT", "MNFT") {}
+    constructor() ERC721("MYNFT", "MNFT") {}
 
     function createNft(string calldata tokenURI) public returns (uint256) {
         uint256 tokenId = ++_nextTokenId;
@@ -36,7 +37,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
 
     function listNFT(uint tokenId, uint price) public {
         require(price > 0, "Price is not valid");
-        approve(address(this), tokenId); // gives permission to transfer the nft to the contract
+        approve(address(this), tokenId); // gives permission to transfer the nft to the contract if the msg.sender is not the owner of this token this will revert
         transferFrom(msg.sender, address(this), tokenId); //transfring the nft from user to the contract
         _listings[tokenId] = NFTlisting(price, msg.sender);
         emit NFTTransfer(tokenId,msg.sender, address(this), "", price);
@@ -62,7 +63,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
         ); 
         transferFrom(address(this), msg.sender, tokenId);
         emit NFTTransfer(tokenId,address(this),  msg.sender, "", 0);
-        clearListing(tokenId);
+        clearListing(tokenId); 
     }
 
     function withDraw() public onlyOwner {
