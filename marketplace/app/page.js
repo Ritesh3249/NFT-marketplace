@@ -2,7 +2,7 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import React, { useState } from 'react'
-import useSigner from './state/signer'
+import useSigner from './context/signer'
 const style = {
   wrapper: ``,
   walletConnectWrapper: `flex flex-col justify-center items-center h-screen w-screen bg-[#3b3d42] `,

@@ -1,7 +1,7 @@
 
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { SignerProvider } from '@/app/state/signer'
+import { SignerProvider } from '@/app/context/signer'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

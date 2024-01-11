@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import NFTCard from './NFTCard'
-import useSigner from '@/app/state/signer'
+import useSigner from '@/app/context/signer'
  
 
 const style = {
