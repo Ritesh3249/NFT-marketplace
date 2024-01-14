@@ -21,7 +21,7 @@ export async function sendJsonFileToIpfs(nftTitle, description,imageHash) {
       })
 
       const resFile = await axios.post(pinataJsonUrl,data,sendJsonHeader)
-      return `ipfs://${resFile?.data.IpfsHash}]`
+      return `https://ipfs.io/ipfs/${resFile?.data.IpfsHash}`
 }
 
 export async function sendImageToIpfs(file) {

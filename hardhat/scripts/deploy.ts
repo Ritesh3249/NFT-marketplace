@@ -6,7 +6,7 @@ async function main() {
   saveFrontendFiles(nft,"NFTmarket");
 
   console.log(
-    "Deployed",nft);
+    "Deployed",nft.target);
 }
 function saveFrontendFiles(contract:any , name:string) {
   const fs = require("fs");
@@ -23,7 +23,7 @@ function saveFrontendFiles(contract:any , name:string) {
   );
 
   const contractArtifact = artifacts.readArtifactSync(name);
-console.log(contractArtifact,"a1111")
+// console.log(contractArtifact,"a1111")
   fs.writeFileSync(
     contractsDir + `/${name}.json`,
     JSON.stringify(contractArtifact, null, 2)

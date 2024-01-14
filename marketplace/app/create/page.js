@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import React, { useState } from 'react';
 import { RiUpload2Fill } from 'react-icons/ri';
 import { sendImageToIpfs, sendJsonFileToIpfs } from '@/pinata';
+import useSigner from '../context/signer';
 
 const style = {
   wrapper: ` relative `,
@@ -35,6 +36,11 @@ const CreateNFTPage = () => {
     description: '',
     imageFile: '',
   });
+
+  //Calling context
+
+  const {contract}=useSigner()
+  // console.log(contract, "1111111")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,6 +76,9 @@ const CreateNFTPage = () => {
       // const imgHash = `https://ipfs.io/ipfs/${resFile?.data.IpfsHash}]`
 
 
+      // toast.success("Nft minted successfully",{
+      //   position:"top-center"
+      // })
       toast.success("Nft minted successfully",{
         position:"top-center"
       })
@@ -77,8 +86,10 @@ const CreateNFTPage = () => {
       setDescription('');
       setImageFile(null);
       setLoading(false)
-      console.log(hash, "1111111")
-      console.log(imageRes,"2222222")
+      // console.log(contract, "1111111")
+      let data = await contract.createNft(hash);
+       
+      // console.log(imageHash,"2222222")
     } catch (error) {
       setLoading(false)
       toast.error("Nft minting Failed ",{
@@ -126,7 +137,7 @@ const CreateNFTPage = () => {
 
                     <button type="submit" className={style.formSubmit}>
                       <RiUpload2Fill className="mr-2" />
-                      {loading ? 'Loading' : 'Mint NFT'}
+                      {loading ? 'Loading...' : 'Mint NFT'}
                     </button>
                   </form>
                 </div>

@@ -12,6 +12,7 @@ export function SignerProvider({ children }) {
     const [signer, setSigner] = useState();
     const [address, setAddress] = useState();
     const [loading, setLoading] = useState(false);
+    const [contract,setContract] = useState()
 
     //   const [account, setAccount] = useState(null)
     //   const [nft, setNFT] = useState({})
@@ -50,9 +51,12 @@ export function SignerProvider({ children }) {
     const loadContracts = async (signer) => {
         // Get deployed copies of contracts
         const marketplace = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer)
-        console.log(marketplace,"111")
+        // console.log(marketplace,"111")
+        
+       
+        setContract(marketplace);
     }
-    const contextValue = { signer, address, loading, connectWallet }
+    const contextValue = { signer, address, loading, connectWallet,contract }
     return (<SignerContext.Provider value={contextValue}>{children}</SignerContext.Provider>)
 }
 
