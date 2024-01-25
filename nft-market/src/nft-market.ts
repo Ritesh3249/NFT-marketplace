@@ -7,7 +7,7 @@ import {
   OwnershipTransferred as OwnershipTransferredEvent,
   TokenEvents as TokenEventsEvent,
   Transfer as TransferEvent
-} from "../generated/Contract/Contract"
+} from "../generated/NFTMarket/NFTMarket"
 import {
   Approval,
   ApprovalForAll,

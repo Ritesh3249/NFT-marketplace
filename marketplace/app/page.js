@@ -11,6 +11,8 @@ const style = {
 }
 const page = () => {
   const {address,loading , connectWallet}=useSigner()
+  
+ 
 
   return (
     <div className={style.wrapper}>

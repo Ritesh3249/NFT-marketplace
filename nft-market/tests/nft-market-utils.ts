@@ -9,7 +9,7 @@ import {
   OwnershipTransferred,
   TokenEvents,
   Transfer
-} from "../generated/Contract/Contract"
+} from "../generated/NFTMarket/NFTMarket"
 
 export function createApprovalEvent(
   owner: Address,

@@ -22,7 +22,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
     );
     mapping(uint256 => NFTlisting) _listings;
 
-    constructor() ERC721("MYNFT", "MNFT") {}
+    constructor() ERC721("MYNFT", "MNFT") {}    
 
     function createNft(string calldata tokenURI) public returns (uint256) {
         uint256 tokenId = ++_nextTokenId;
@@ -47,7 +47,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
         NFTlisting memory listing = _listings[tokenId];
         require(listing.price > 0, "NFTMarker:nft not listed for sale");
         require(msg.value == listing.price, "NFTMarker:incorrect value");
-        transferFrom(address(this), msg.sender, tokenId);
+       ERC721(address(this)).transferFrom(address(this), msg.sender, tokenId);
         clearListing(tokenId);
         emit NFTTransfer(tokenId,address(this), msg.sender, "", 0);
 
@@ -61,7 +61,7 @@ contract NFTmarket is ERC721URIStorage, Ownable {
             listing.seller == msg.sender,
             "NFTMarket: You are not the owner"
         ); 
-        transferFrom(address(this), msg.sender, tokenId);
+        ERC721(address(this)).transferFrom(address(this), msg.sender, tokenId);
         emit NFTTransfer(tokenId,address(this),  msg.sender, "", 0);
         clearListing(tokenId); 
     }

@@ -1,11 +1,13 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NFTCard from './NFTCard'
 import useSigner from '@/app/context/signer'
+import useOwnedNFTs from '@/state/nft-market/useOwnedNFT'
+import useNFTMarket from '@/state/nft-market'
  
 
 const style = {
-  wrapper: `relative`,
+  wrapper: `relative mt-5`,
   container: `before:content-[''] before:bg-red-500 before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-[url('https://lh3.googleusercontent.com/ujepnqpnL0nDQIHsWxlCXzyw4pf01yjz1Jmb4kAQHumJAPrSEj0-e3ABMZlZ1HEpJoqwOcY_kgnuJGzfXbd2Tijri66GXUtfN2MXQA=s250')] before:bg-cover before:bg-center before:opacity-30 before:blur`,
   contentWrapper: `flex h-screen relative justify-center flex-wrap items-center`,
   copyContainer: `w-1/2`,
@@ -22,52 +24,34 @@ const style = {
 }
 
 const Hero = () => {
-  const [nfts, setNfts] = useState([{
-    id:1,
-    image:'https://via.placeholder.com/200',
-    name:'item1'
-  },
-  {
-    id:2,
-    image:'https://via.placeholder.com/200',
-    name:'item2'
-  },{
-    id:3,
-    image:'https://via.placeholder.com/200',
-    name:'item3'
-  },{
-    id:4,
-    image:'https://via.placeholder.com/200',
-    name:'item4'
-  },{
-    id:5,
-    image:'https://via.placeholder.com/200',
-    name:'item5'
-  },
-])
+  const [nfts, setNfts] = useState([])
 
-const {address,loading , connectWallet}=useSigner()
+// const {address,loading , connectWallet}=useSigner()
+const {listedNFTs} = useNFTMarket();
 
-  const [listings, setListings] = useState([{
-    asset:{
-      id:1
-    },
-    buyoutCurrencyValuePerToken:{
-      displayValue:121
-    }
-  }])
+// console.log(ownedListedNFTs," ownedListedNFTs")
+// console.log(listedNFTs,"listedNFTs")
+// console.log(ownedNFTs,"ownedNFTs")
+ 
+  
+ 
+
+  
+  
   return (
     <div className={style.wrapper}> 
+    
          <div className="flex flex-wrap ">
-        {nfts.map((nftItem, id) => (
+        {listedNFTs&&listedNFTs.map((nftItem, id) => (
           <NFTCard
             key={id}
-            nftItem={nftItem}
+            nft={nftItem}
             title="this is tested item"
-            listings={listings}
           />
         ))}
+        
       </div>
+      
     </div>
   )
 }

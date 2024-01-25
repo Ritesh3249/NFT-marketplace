@@ -53,7 +53,7 @@ const Header = () => {
       </div>
       <div className={style.headerItems}>
 
-        <Link href="/collections/0x66a576A977b7Bccf510630E0aA5e450EC11361Fa">
+        <Link href="/collections">
           <div className={style.headerItem}> My Collections </div>
         </Link>
         <Link href="/create">
@@ -71,7 +71,7 @@ const Header = () => {
         </div>
         {isMenuOpen && (
         <div className={style.mobileMenu}>
-                  <Link href="/collections/0x66a576A977b7Bccf510630E0aA5e450EC11361Fa" className='w-full'>
+                  <Link href="/collections" className='w-full'>
 
           <div className={style.mobileMenuItem}>My Collections</div>
           </Link>

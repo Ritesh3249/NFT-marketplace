@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import "@nomicfoundation/hardhat-toolbox"
 
 async function main() {
   const NFTmarket = await  ethers.deployContract("NFTmarket");

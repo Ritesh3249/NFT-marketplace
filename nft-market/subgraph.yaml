@@ -1,14 +1,16 @@
-specVersion: 0.0.5
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Contract
+    name: NFTMarket
     network: sepolia
     source:
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-      abi: Contract
-      startBlock: 0
+      address: "0x9794B54897e1E692d8526F6424DF6A3b186899cd"
+      abi: NFTMarket
+      startBlock: 5153000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -23,8 +25,8 @@ dataSources:
         - TokenEvents
         - Transfer
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: NFTMarket
+          file: ./abis/NFTMarket.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -42,4 +44,4 @@ dataSources:
           handler: handleTokenEvents
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/contract.ts
+      file: ./src/nft-market.ts

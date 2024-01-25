@@ -8,9 +8,9 @@ import {
 } from "matchstick-as/assembly/index"
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { Approval } from "../generated/schema"
-import { Approval as ApprovalEvent } from "../generated/Contract/Contract"
-import { handleApproval } from "../src/contract"
-import { createApprovalEvent } from "./contract-utils"
+import { Approval as ApprovalEvent } from "../generated/NFTMarket/NFTMarket"
+import { handleApproval } from "../src/nft-market"
+import { createApprovalEvent } from "./nft-market-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

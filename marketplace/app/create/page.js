@@ -24,13 +24,19 @@ const style = {
   formInput: `w-full h-10 bg-[#363840] text-[#e6e8eb] border-none rounded-md mb-4 px-2 outline-none`,
   formTextarea: `w-full h-24 bg-[#363840] text-[#e6e8eb] border-none rounded-md mb-4 px-2 outline-none resize-none`,
   formSubmit: `w-full h-10 bg-[#00d1ff] text-[#04111d] font-semibold rounded-md cursor-pointer`,
+///Logoutcss
+  
+  walletConnectWrapper: `flex flex-col justify-center items-center h-screen w-screen bg-[#3b3d42] `,
+  button: `border border-[#282b2f] bg-[#2081e2] p-[0.8rem] text-xl font-semibold rounded-lg cursor-pointer text-black`,
+  details: `text-lg text-center text=[#282b2f] font-semibold mt-4`,
+
 };
 
 const CreateNFTPage = () => {
   const [nftTitle, setNFTTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     nftTitle: '',
     description: '',
@@ -39,7 +45,7 @@ const CreateNFTPage = () => {
 
   //Calling context
 
-  const {contract}=useSigner()
+  const {contract,address,loading , connectWallet}=useSigner()
   // console.log(contract, "1111111")
 
   const handleSubmit = async (e) => {
@@ -73,22 +79,15 @@ const CreateNFTPage = () => {
       
       const imageHash = await sendImageToIpfs(imageFile)
       const hash = await sendJsonFileToIpfs(nftTitle, description, imageHash)
-      // const imgHash = `https://ipfs.io/ipfs/${resFile?.data.IpfsHash}]`
-
-
-      // toast.success("Nft minted successfully",{
-      //   position:"top-center"
-      // })
+     
+    
+     
+      
+      // console.log(contract, "1111111")
+       await contract.createNft(hash);
       toast.success("Nft minted successfully",{
         position:"top-center"
       })
-      setNFTTitle('');
-      setDescription('');
-      setImageFile(null);
-      setLoading(false)
-      // console.log(contract, "1111111")
-      let data = await contract.createNft(hash);
-       
       // console.log(imageHash,"2222222")
     } catch (error) {
       setLoading(false)
@@ -96,8 +95,12 @@ const CreateNFTPage = () => {
         position:"top-center"
       })
 
-      console.error('Error during NFT minting:', error);
+      console.error('Error during NFT minting:', error.shortMessage);
     }
+    setNFTTitle('');
+    setDescription('');
+    setImageFile(null);
+    setLoading(false)
   };
 
 
@@ -110,7 +113,9 @@ const CreateNFTPage = () => {
   return (
     <div>
 
-
+ 
+{ 
+    address?<>
 
       <div className={style.wrapper}>
         <div className='relative z-[100]'>
@@ -137,7 +142,7 @@ const CreateNFTPage = () => {
 
                     <button type="submit" className={style.formSubmit}>
                       <RiUpload2Fill className="mr-2" />
-                      {loading ? 'Loading...' : 'Mint NFT'}
+                      {Loading ? 'Loading...' : 'Mint NFT'}
                     </button>
                   </form>
                 </div>
@@ -155,6 +160,21 @@ const CreateNFTPage = () => {
           </div>
         </div>
       </div>
+      </>
+      :
+    <div className={style.walletConnectWrapper}>
+          <button
+            className={style.button}
+            onClick={() => connectWallet()}
+          >
+            {loading?"Loading...":"Connect Wallet"}
+            
+          </button>
+          <div className={style.details}>
+            You need Connect your wallet to
+            <br /> run this app.
+          </div>
+        </div>}
     </div>
   );
 };
