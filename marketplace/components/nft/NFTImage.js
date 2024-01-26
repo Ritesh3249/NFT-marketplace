@@ -1,6 +1,7 @@
 "use client"
 import { IoMdSnow } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
+import Image from 'next/image'
 
 const style = {
   topBar: `bg-[#303339] p-2 rounded-t-lg border-[#151c22] border`,
@@ -22,7 +23,8 @@ const NFTImage = ({ selectedNft }) => {
       </div>
       <div>
         {console.log(selectedNft, '🎆')}
-        <img src={selectedNft?.image} />
+        <Image alt="" src={selectedNft?.image}  width={500}
+ height={500}/>
       </div>
     </div>
   )

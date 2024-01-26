@@ -1,7 +1,7 @@
 "use client"
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useSigner from './context/signer'
 const style = {
   wrapper: ``,
@@ -9,10 +9,20 @@ const style = {
   button: `border border-[#282b2f] bg-[#2081e2] p-[0.8rem] text-xl font-semibold rounded-lg cursor-pointer text-black`,
   details: `text-lg text-center text=[#282b2f] font-semibold mt-4`,
 }
-const page = () => {
+const Page = () => {
   const {address,loading , connectWallet}=useSigner()
-  
+    
+useEffect(() => { 
+  if ( window.ethereum){ connectWallet();
  
+  
+  window.ethereum.on("accountsChanged", connectWallet);
+
+  
+  window.ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+  })}
+}, []);
 
   return (
     <div className={style.wrapper}>
@@ -20,7 +30,7 @@ const page = () => {
    { 
     address?<>
    <Header />
-    <Hero />
+    <Hero  />
     </>:
     <div className={style.walletConnectWrapper}>
           <button
@@ -40,4 +50,4 @@ const page = () => {
   )
 } 
 
-export default page
+export default Page

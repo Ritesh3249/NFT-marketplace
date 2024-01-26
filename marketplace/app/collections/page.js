@@ -10,6 +10,7 @@ import NFTCard from '@/components/NFTCard'
 import useSigner from '@/app/context/signer'
 import useNFTMarket from '@/state/nft-market'
 import AddressAvatar from '@/components/AddressAvatar'
+import Image from 'next/image'
 
  
 const style = {
@@ -45,14 +46,21 @@ const style = {
 
 const Collection = () => {
   const {address,loading , connectWallet}=useSigner()
-
-//   const router = useRouter()
-//   const { provider } = useWeb3()
-//   const { collectionId } = router.query
-//   const [collection, setCollection] = useState({})
+ 
 const {ownedListedNFTs,ownedNFTs} = useNFTMarket();
-
    
+useEffect(() => { 
+  if ( window.ethereum){ connectWallet();
+ 
+  
+  window.ethereum.on("accountsChanged", connectWallet);
+
+  
+  window.ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+  })}
+}, []);
+
   return (
 <>
 
@@ -61,11 +69,16 @@ const {ownedListedNFTs,ownedNFTs} = useNFTMarket();
   <Header />
   <div className={style.bannerImageContainer}>
 
-    <img
+    <Image
+          layout='intrinsic'      
+
       className={style.bannerImage}
       src={
           'https://via.placeholder.com/200'
       }
+      width={500}
+      height={500}
+
     //   src={
     //     collection?.bannerImageUrl
     //       ? collection.bannerImageUrl
@@ -77,11 +90,15 @@ const {ownedListedNFTs,ownedNFTs} = useNFTMarket();
   <div className={style.infoContainer}>
     <div className={style.midRow}>
      
-      <img
+      <Image
+      layout='intrinsic'      
+
         className={style.profileImg}
         src={
              'https://via.placeholder.com/200'
           }
+          width={500}
+          height={500}
         //   src={
         //     collection?.imageUrl
         //       ? collection.imageUrl

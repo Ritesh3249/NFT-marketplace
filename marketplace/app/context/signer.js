@@ -18,17 +18,7 @@ export function SignerProvider({ children }) {
     //   const [nft, setNFT] = useState({})
     //   const [marketplace, setMarketplace] = useState({})
 
-    useEffect(() => { 
-        if ( window.ethereum){ connectWallet();
-       
-        
-        window.ethereum.on("accountsChanged", connectWallet);
-
-        
-        window.ethereum.on('chainChanged', (chainId) => {
-            window.location.reload();
-        })}
-      }, []);
+ 
     const connectWallet = async () => {
         // setAccount(accounts[0])
         // Get provider from Metamask

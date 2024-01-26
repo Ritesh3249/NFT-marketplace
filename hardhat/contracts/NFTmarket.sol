@@ -12,6 +12,7 @@ struct NFTlisting {
 contract NFTmarket is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId = 0;
     
+    
     event TokenEvents(uint256 uid);
     event NFTTransfer(
         uint256 tokenId,

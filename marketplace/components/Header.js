@@ -38,7 +38,7 @@ const Header = () => {
     <div className={style.wrapper}>
       <Link href="/">
         <div className={style.logoContainer}>
-          <Image src={openseaLogo} alt="" height={40} width={40} />
+          <Image src={openseaLogo}  alt="" height={40} width={40} />
           <div className={style.logoText}>Opensea</div>
         </div>
       </Link>

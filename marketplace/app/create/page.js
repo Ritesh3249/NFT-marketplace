@@ -1,10 +1,11 @@
 "use client"
 import Header from '@/components/Header';
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiUpload2Fill } from 'react-icons/ri';
 import { sendImageToIpfs, sendJsonFileToIpfs } from '@/pinata';
 import useSigner from '../context/signer';
+import Image from 'next/image';
 
 const style = {
   wrapper: ` relative `,
@@ -85,6 +86,7 @@ const CreateNFTPage = () => {
       
       // console.log(contract, "1111111")
        await contract.createNft(hash);
+       
       toast.success("Nft minted successfully",{
         position:"top-center"
       })
@@ -109,7 +111,18 @@ const CreateNFTPage = () => {
     setImageFile(file);
   };
 
-
+   
+  useEffect(() => { 
+    if ( window.ethereum){ connectWallet();
+   
+    
+    window.ethereum.on("accountsChanged", connectWallet);
+  
+    
+    window.ethereum.on('chainChanged', (chainId) => {
+        window.location.reload();
+    })}
+  }, []);
   return (
     <div>
 
@@ -149,10 +162,12 @@ const CreateNFTPage = () => {
               </div>
             </div>
             <div className={style.cardContainer}>
-              <img
+              <Image
                 className="w-full h-full  object-cover xsm:max-lg:hidden"
                 src="https://opensea.io/static/images/studio/spring-and-autumn-by-krisk.avif"
                 alt="sdc"
+                width={500}
+                height={500}
               />
 
 

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { BsFillCartFill } from 'react-icons/bs'
 
 const style = {
@@ -21,10 +22,12 @@ const EventItem = ({ event }) => {
         <div className={style.eventName}>Sale</div>
       </div>
       <div className={`${style.eventPrice} flex-[2]`}>
-        <img
+        <Image
           src=""
           alt="eth"
           className={style.ethLogo}
+          width={500}
+          height={500}
         />
         <div className={style.eventPriceValue}>{event.price}</div>
       </div>

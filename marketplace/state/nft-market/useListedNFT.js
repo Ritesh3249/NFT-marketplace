@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import useSigner from "../../app/context/signer";
 import MarketplaceAddress from "../../contractsData/NFTmarket-address.json"
 import { parseRawNFT } from "./helpers";
-require('dotenv').config();
+// require('dotenv').config();
 
 const useListedNFTs = () => {
   const { address } = useSigner();

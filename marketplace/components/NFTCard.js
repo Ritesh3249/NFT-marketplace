@@ -215,6 +215,7 @@ import { toast } from "react-toastify";
 import SellPopup from "./SellPopup";
 import useNFTMarket from "@/state/nft-market";
 import useSigner from "@/app/context/signer";
+import Image from "next/image";
  
 const NFTCard = (props) => {
   const { nft } = props;
@@ -317,9 +318,11 @@ const router = useRouter();
       )}
     >
       {meta ? (
-        <img
+        <Image
           src={meta?.imageURL}
           alt={meta?.name}
+          width={500}
+          height={500}
           className="h-80 w-full object-cover object-center"
         />
       ) : (
